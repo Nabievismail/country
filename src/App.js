@@ -1,23 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useEffect} from 'react';
+import { getRequestCountryAll } from './redux/request';
+import { useDispatch} from 'react-redux';
+import Header from './components/header';
+import Country from './components/Country';
+import { Routes, Route} from  "react-router-dom"
+import Detail from './components/Detail';
+import * as Scroll from 'react-scroll'
+import { useLocation } from 'react-router-dom';
 
-function App() {
+const App = () => { 
+  
+  const scroll = Scroll.animateScroll
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  useEffect(() => {
+    dispatch(getRequestCountryAll())
+  }, [])
+  useEffect(() => {
+    scroll.scrollTo(0, 0)
+  }, [pathname]);
+
+  const up = () => {
+    scroll.scrollTo(0,0)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+      <div onClick={up} className='up'>up</div>
+      <Routes>
+        <Route path='/' element={<Country/>}/>
+        <Route path='/detail/:name' element={<Detail/>}/>
+      </Routes>
     </div>
   );
 }
