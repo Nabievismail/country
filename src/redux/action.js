@@ -12,3 +12,10 @@ export const iteDetailAction = (data, errorMessage) => {
         errorMessage
     }
 }
+
+export const loadingAction = (bool) => {
+    return {
+        type:"LOADING",
+        payload: bool
+    }
+}

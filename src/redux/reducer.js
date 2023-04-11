@@ -1,12 +1,19 @@
 const defaultState = {
     countries: [],
     item:[],
-    errorMessage: null
+    errorMessage: null,
+    loading: false
 }
 
 export const reducer = (state = defaultState, action) => {
     const {payload, type,errorMessage} = action;
     switch(type) {
+        case "LOADING" :{
+            return {
+                ...state,
+                loading: payload
+            }
+        }
         case "LOAD_ITEM" : {
             return {
                 ...state,

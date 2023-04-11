@@ -6,12 +6,17 @@ import CountryItem from './CountryItem';
 const Detail = () => {
     const { name } = useParams();
     const dispatch = useDispatch();
-    const { item, errorMessage } = useSelector(state => state);
+    const { item, errorMessage ,loading} = useSelector(state => state);
     console.log(item)
     useEffect(() => {
         dispatch(getRequestSearchName(name))
     }, [name])
-
+    if(loading) {
+        return <h1 style={{
+            textAlign:'center',
+            marginTop: '50px'
+        }}>loading...</h1>
+    }
     if (errorMessage !== null) {
         return <h1>{errorMessage}</h1>
     }
